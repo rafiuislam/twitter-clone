@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Sidebar from '../components/Sidebar'
+import Feed from '../components/Feed'
 
 const Home: NextPage = () => {
   return (
@@ -13,7 +14,7 @@ const Home: NextPage = () => {
 
       <main className="mx-auto flex min-h-screen max-w-[1500px] bg-black">
         <Sidebar />
-        {/* Feed */}
+        <Feed />
         {/* Widget */}
 
         {/* Modal */}

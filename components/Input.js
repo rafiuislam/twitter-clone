@@ -34,7 +34,7 @@ const Input = () => {
 
     const docRef = await addDoc(collection(db, 'posts'), {
       id: session.user.uid,
-      uesrname: session.user.name,
+      username: session.user.name,
       userImg: session.user.image,
       tag: session.user.tag,
       text: input,

@@ -11,8 +11,10 @@ import {
   DotsHorizontalIcon,
 } from '@heroicons/react/outline'
 import { HomeIcon } from '@heroicons/react/solid'
+import { useSession } from 'next-auth/react'
 
 const Sidebar = () => {
+  const { data: session } = useSession()
   return (
     <div className="fixed hidden h-full flex-col items-center p-2 sm:flex xl:w-[340px] xl:items-start ">
       <div className="hoverAnimation flex h-14 w-14 items-center justify-center p-0 xl:ml-24 ">
@@ -34,7 +36,7 @@ const Sidebar = () => {
       <div className="hoverAnimation mt-auto flex items-center justify-center text-[#d9d9d9] xl:ml-auto xl:mr-2.5">
         <img
           className="h-8 w-8 rounded-full xl:mr-2.5"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png"
+          src={session?.user?.image}
           alt=""
         />
         <div className="hidden leading-5 xl:inline">

@@ -21,7 +21,7 @@ export default function Home({ trendingResults, followResults, providers }) {
       <main className="mx-auto flex min-h-screen max-w-[1500px] bg-black">
         <Sidebar />
         <Feed />
-        {session.user.image}
+        {/* {session.user.image} */}
         {/* Widget */}
 
         {/* Modal */}

@@ -18,6 +18,7 @@ import {
 } from '@firebase/firestore'
 import { getDownloadURL, ref, uploadString } from '@firebase/storage'
 import { async } from '@firebase/util'
+import { useSession } from 'next-auth/react'
 
 const Input = () => {
   const [input, setInput] = useState('')
@@ -25,12 +26,17 @@ const Input = () => {
   const [showEmojis, setShowEmojis] = useState(false)
   const [loading, setLoading] = useState(false)
   const filePickerRef = useRef(null)
+  const { data: session } = useSession()
 
   const sendPost = async () => {
     if (loading) return
     setLoading(true)
 
     const docRef = await addDoc(collection(db, 'posts'), {
+      id: session.user.uid,
+      uesrname: session.user.name,
+      userImg: session.user.image,
+      tag: session.user.tag,
       text: input,
       timestamp: serverTimestamp(),
     })
@@ -80,7 +86,7 @@ const Input = () => {
     >
       <img
         className="h-10 w-10 cursor-pointer rounded-full"
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/800px-Instagram_logo_2016.svg.png"
+        src={session?.user?.image}
         alt=""
       />
       <div className="w-full divide-y divide-gray-700 ">

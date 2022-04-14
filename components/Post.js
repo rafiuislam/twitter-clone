@@ -7,20 +7,61 @@ import {
   SwitchHorizontalIcon,
   TrashIcon,
 } from '@heroicons/react/outline'
+import {
+  HeartIcon as HeartIconFilled,
+  ChatIcon as ChatIconFilled,
+} from '@heroicons/react/solid'
 import { useSession } from 'next-auth/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { modalState, postIdState } from '../atoms/modalAtom'
 import { useRecoilState } from 'recoil'
 import Moment from 'react-moment'
+import { useRouter } from 'next/router'
+import { db } from '../firebase'
+import {
+  collection,
+  deleteDoc,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from 'firebase/firestore'
 
 const Post = ({ id, post, postPage }) => {
   const { data: session } = useSession()
   const [comments, setComments] = useState([])
+  const [likes, setLikes] = useState([])
+  const [liked, setLiked] = useState(false)
   const [isOpen, setIsOpen] = useRecoilState(modalState)
   const [postId, setPostId] = useRecoilState(postIdState)
+  const router = useRouter()
+
+  useEffect(() => {
+    onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
+      setLikes(snapshot.docs)
+    })
+  }, [db, id])
+
+  useEffect(() => {
+    setLiked(likes.findIndex((like) => like.id === session?.user?.uid) !== -1)
+  }, [likes])
+
+  const likePost = async () => {
+    if (liked) {
+      await deleteDoc(doc(db, 'posts', id, 'likes', session.user.uid))
+    } else {
+      await setDoc(doc(db, 'posts', id, 'likes', session.user.uid), {
+        username: session.user.name,
+      })
+    }
+  }
 
   return (
-    <div className="flex cursor-pointer border-b border-gray-700 p-3">
+    <div
+      className="flex cursor-pointer border-b border-gray-700 p-3"
+      onClick={() => router.push(`/${id}`)}
+    >
       {!postPage && (
         <img
           src={post?.userImg}
@@ -79,7 +120,7 @@ const Post = ({ id, post, postPage }) => {
             postPage && 'mx-auto'
           }`}
         >
-          {/* <div
+          <div
             className="group flex items-center space-x-1"
             onClick={(e) => {
               e.stopPropagation()
@@ -95,7 +136,7 @@ const Post = ({ id, post, postPage }) => {
                 {comments.length}
               </span>
             )}
-          </div> */}
+          </div>
 
           {session.user.uid === post?.id ? (
             <div
@@ -118,7 +159,7 @@ const Post = ({ id, post, postPage }) => {
             </div>
           )}
 
-          {/* <div
+          <div
             className="group flex items-center space-x-1"
             onClick={(e) => {
               e.stopPropagation()
@@ -141,7 +182,7 @@ const Post = ({ id, post, postPage }) => {
                 {likes.length}
               </span>
             )}
-          </div> */}
+          </div>
 
           <div className="icon group">
             <ShareIcon className="h-5 group-hover:text-[#1d9bf0]" />

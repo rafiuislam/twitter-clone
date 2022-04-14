@@ -8,10 +8,17 @@ import {
   TrashIcon,
 } from '@heroicons/react/outline'
 import { useSession } from 'next-auth/react'
-import React from 'react'
+import React, { useState } from 'react'
+import { modalState, postIdState } from '../atoms/modalAtom'
+import { useRecoilState } from 'recoil'
+import Moment from 'react-moment'
 
 const Post = ({ id, post, postPage }) => {
   const { data: session } = useSession()
+  const [comments, setComments] = useState([])
+  const [isOpen, setIsOpen] = useRecoilState(modalState)
+  const [postId, setPostId] = useRecoilState(postIdState)
+
   return (
     <div className="flex cursor-pointer border-b border-gray-700 p-3">
       {!postPage && (
@@ -42,8 +49,11 @@ const Post = ({ id, post, postPage }) => {
               <span className={`text-sm sm:text-[16px] ${!postPage && 'ml-2'}`}>
                 @{post?.tag}
               </span>
-            </div>
-            <span className="text-sm hover:underline sm:text-[15px]"></span>
+            </div>{' '}
+            ~{' '}
+            <span className="text-sm hover:underline sm:text-[16px]">
+              <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
+            </span>
             {!postPage && (
               <p className="mt-1 text-[16px] text-[#d9d9d9] sm:text-base">
                 {post?.text}

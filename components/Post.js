@@ -38,9 +38,19 @@ const Post = ({ id, post, postPage }) => {
   const router = useRouter()
 
   useEffect(() => {
-    onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) => {
+    onSnapshot(
+      query(
+        collection(db, 'posts', id, 'comments'),
+        orderBy('timestamp', 'desc')
+      ),
+      (snapshot) => setComments(snapshot.docs)
+    )
+  }, [db, id])
+
+  useEffect(() => {
+    onSnapshot(collection(db, 'posts', id, 'likes'), (snapshot) =>
       setLikes(snapshot.docs)
-    })
+    )
   }, [db, id])
 
   useEffect(() => {

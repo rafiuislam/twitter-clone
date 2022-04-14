@@ -11,9 +11,7 @@ const Feed = () => {
   useEffect(() => {
     onSnapshot(
       query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
-      (snapShot) => {
-        setPosts(snapShot.docs)
-      }
+      (snapShot) => setPosts(snapShot.docs)
     )
   }, [db])
 

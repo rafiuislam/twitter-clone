@@ -91,7 +91,7 @@ const Post = ({ id, post, postPage }) => {
           <div className="text-[#6e7d7d]">
             <div className="group inline-block">
               <h4
-                className={`text-[15px] font-bold text-[#d9d9d9] group-hover:underline  sm:text-base ${
+                className={`text-[16px] font-bold text-[#d9d9d9] group-hover:underline  sm:text-base ${
                   !postPage && 'inline-block'
                 }`}
               >
@@ -101,7 +101,7 @@ const Post = ({ id, post, postPage }) => {
                 @{post?.tag}
               </span>
             </div>{' '}
-            ~{' '}
+            ·{' '}
             <span className="text-sm hover:underline sm:text-[16px]">
               <Moment fromNow>{post?.timestamp?.toDate()}</Moment>
             </span>

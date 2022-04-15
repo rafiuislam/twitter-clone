@@ -11,7 +11,7 @@ const Feed = () => {
   useEffect(() => {
     onSnapshot(
       query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
-      (snapShot) => setPosts(snapShot.docs)
+      (snapShot) => setPosts(snapShot.docs) // .docs for inserting the data in array's
     )
   }, [db])
 

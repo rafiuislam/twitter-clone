@@ -20,6 +20,7 @@ import {
 import { db } from '../firebase'
 import { ArrowLeftIcon } from '@heroicons/react/outline'
 import Comment from '../components/Comment'
+import Widgets from '../components/Widgets'
 
 const PostPage = ({ trendingResults, followResults, providers }) => {
   const { data: session } = useSession()
@@ -80,7 +81,7 @@ const PostPage = ({ trendingResults, followResults, providers }) => {
           )}
         </div>
 
-        {/* Widget */}
+        <Widgets />
         {isOpen && <Modal />}
       </main>
     </div>

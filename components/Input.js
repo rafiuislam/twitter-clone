@@ -1,10 +1,10 @@
-import {
-  CalendarIcon,
-  ChartBarIcon,
-  EmojiHappyIcon,
-  PhotographIcon,
-  XIcon,
-} from '@heroicons/react/outline'
+// import {
+//   CalendarIcon,
+//   ChartBarIcon,
+//   EmojiHappyIcon,
+//   PhotographIcon,
+//   XIcon,
+// } from '@heroicons/react/outline'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 import React, { useState, useRef } from 'react'
@@ -19,6 +19,10 @@ import {
 import { getDownloadURL, ref, uploadString } from '@firebase/storage'
 import { async } from '@firebase/util'
 import { useSession } from 'next-auth/react'
+import SentimentSatisfiedAltOutlinedIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined'
+import LeaderboardOutlinedIcon from '@mui/icons-material/LeaderboardOutlined'
+import InsertPhotoOutlinedIcon from '@mui/icons-material/InsertPhotoOutlined'
+import DateRangeOutlinedIcon from '@mui/icons-material/DateRangeOutlined'
 
 const Input = () => {
   const [input, setInput] = useState('')
@@ -121,7 +125,7 @@ const Input = () => {
                 className="icon"
                 onClick={() => filePickerRef.current.click()}
               >
-                <PhotographIcon className="h-[20px] text-[#1d9dfd]" />
+                <InsertPhotoOutlinedIcon className="h-[20px] text-[#1d9dfd]" />
                 <input
                   type="file"
                   hidden
@@ -130,15 +134,15 @@ const Input = () => {
                 />
               </div>
               <div className="icon">
-                <ChartBarIcon className="h-[22px] text-[#1d9dfd]" />
+                <LeaderboardOutlinedIcon className="h-[22px] text-[#1d9dfd]" />
               </div>
 
               <div className="icon" onClick={() => setShowEmojis(!showEmojis)}>
-                <EmojiHappyIcon className="h-[22px] text-[#1d9dfd]" />
+                <SentimentSatisfiedAltOutlinedIcon className="h-[22px] text-[#1d9dfd]" />
               </div>
 
               <div className="icon">
-                <CalendarIcon className="h-[22px] text-[#1d9dfd]" />
+                <DateRangeOutlinedIcon className="h-[22px] text-[#1d9dfd]" />
               </div>
 
               {showEmojis && (

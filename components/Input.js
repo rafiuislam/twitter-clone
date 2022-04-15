@@ -1,10 +1,10 @@
-// import {
-//   CalendarIcon,
-//   ChartBarIcon,
-//   EmojiHappyIcon,
-//   PhotographIcon,
-//   XIcon,
-// } from '@heroicons/react/outline'
+import {
+  // CalendarIcon,
+  // ChartBarIcon,
+  // EmojiHappyIcon,
+  // PhotographIcon,
+  XIcon,
+} from '@heroicons/react/outline'
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 import React, { useState, useRef } from 'react'
